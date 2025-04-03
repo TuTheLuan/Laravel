@@ -9,8 +9,4 @@ use Illuminate\Routing\Controller as BaseController;
 class Controller extends BaseController
 {
     use AuthorizesRequests, ValidatesRequests;
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 51532f6 (Fixed adding files issue)

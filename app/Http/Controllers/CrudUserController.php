@@ -57,6 +57,8 @@ class CrudUserController extends Controller
     {
         $request->validate([
             'name' => 'required',
+            'sdt' => 'required',
+            'address' => 'required',
             'email' => 'required|email|unique:users',
             'password' => 'required|min:6',
         ]);
@@ -64,6 +66,8 @@ class CrudUserController extends Controller
         $data = $request->all();
         $check = User::create([
             'name' => $data['name'],
+            'sdt' => $data['sdt'],
+            'address' => $data['address'],
             'email' => $data['email'],
             'password' => Hash::make($data['password'])
         ]);
@@ -131,7 +135,7 @@ class CrudUserController extends Controller
     {
         if(Auth::check()){
             $users = User::all();
-            return view('crud_user.list', ['users' => $users]);
+            return view('layout.list', ['users' => $users]);
         }
 
         return redirect("login")->withSuccess('You are not allowed to access');
@@ -146,4 +150,7 @@ class CrudUserController extends Controller
 
         return Redirect('login');
     }
+
+
+    
 }
