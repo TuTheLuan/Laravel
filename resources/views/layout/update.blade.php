@@ -57,10 +57,12 @@
         @if(isset($user))
         <form action="{{ route('user.postUpdate', ['id' => $user->id]) }}" method="POST">
             @csrf
+            
             <div class="mb-3">
                 <label class="form-label">Username</label>
                 <input type="text" name="username" class="form-control" value="{{ $user->username }}" required>
             </div>
+            
             <div class="mb-3">
                 <label class="form-label">Mật khẩu</label>
                 <input type="password" name="password" class="form-control" placeholder="Nhập mật khẩu mới">

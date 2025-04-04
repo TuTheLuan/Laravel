@@ -55,10 +55,12 @@
         <form action="{{ route('layout.postRegister') }}" method="POST">
     @csrf
 
+    
     <div class="mb-3">
         <label class="form-label">Username</label>
         <input type="text" name="username" class="form-control" required>
     </div>
+    
     <div class="mb-3">
         <label class="form-label">Mật khẩu</label>
         <input type="password" name="password" class="form-control" required>

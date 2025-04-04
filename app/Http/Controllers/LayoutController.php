@@ -70,22 +70,27 @@ class LayoutController extends Controller
      */
     public function postUser(Request $request)
 {
-    $request->validate([
+    $validatedData = $request->validate([
         'username' => 'required|unique:users',
         'email' => 'required|email|unique:users',
         'password' => 'required|min:6|confirmed',
+       
     ]);
 
-    // Tạo user mới
-    User::create([
-        'username' => $request->username,
-        'email' => $request->email,
-        'password' => bcrypt($request->password),
-    ]);
+    try {
+        User::create([
+            'username' => $validatedData['username'],
+            'email' => $validatedData['email'],
+            'password' => bcrypt($validatedData['password']),
+            
+        ]);
 
-    // Chuyển hướng đến trang đăng nhập
-    return redirect()->route('layout.login')->with('success', 'Đăng ký thành công! Mời bạn đăng nhập.');
+        return redirect()->route('layout.login')->with('success', 'Đăng ký thành công!');
+    } catch (\Exception $e) {
+        return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+    }
 }
+
 
 
 
@@ -120,20 +125,34 @@ class LayoutController extends Controller
  
 
     public function postUpdate(Request $request, $id)
-    {
+{
     $user = User::find($id);
     if (!$user) {
         return redirect()->route('layout.list')->with('error', 'User not found!');
     }
 
+    // Validation dữ liệu đầu vào
+    $request->validate([
+        'username' => 'required|unique:users,username,' . $id,
+        'email' => 'required|email|unique:users,email,' . $id,
+        
+    ]);
+
     // Cập nhật dữ liệu
     $user->username = $request->username;
     $user->email = $request->email;
-    $user->password = $request->password;
+  
+
+    // Kiểm tra nếu người dùng nhập mật khẩu mới
+    if ($request->filled('password')) {
+        $user->password = bcrypt($request->password);
+    }
+
     $user->save();
 
     return redirect()->route('layout.list')->with('success', 'User updated successfully!');
-    }
+}
+
 
 
 
