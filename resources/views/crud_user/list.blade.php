@@ -10,6 +10,7 @@
                             <th>ID</th>
                             <th>Name</th>
                             <th>Email</th>
+                            <th>Order</th>
                             <th>Roles</th>
                             <th>Action</th>
                         </tr>
@@ -20,6 +21,9 @@
                                 <th>{{ $user->id }}</th>
                                 <th>{{ $user->name }}</th>
                                 <th>{{ $user->email }}</th>
+                                <th>
+                                    <a href="{{ route('user.orders', ['id' => $user->id]) }}">Xem</a>
+                                </th>
                                 <th>
                                     @foreach($user->roles as $role)
                                         <a href="{{ route('user.role', ['id' => $role->id]) }}">

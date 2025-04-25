@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\RoleController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CrudUserController;
@@ -33,6 +34,10 @@ Route::post('update', [CrudUserController::class, 'postUpdateUser'])->name('user
 Route::get('list', [CrudUserController::class, 'listUser'])->name('user.list');
 //Roles
 Route::get('role', [RoleController::class, 'role'])->name('user.role');
+
+//order
+Route::get('order', [OrderController::class, 'order'])->name('user.order');
+Route::get('/user/{id}/orders', [OrderController::class, 'userOrders'])->name('user.orders');
 
 Route::get('signout', [CrudUserController::class, 'signOut'])->name('signout');
 

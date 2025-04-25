@@ -133,7 +133,7 @@ class CrudUserController extends Controller
     {
 
         if(Auth::check()){
-            $users = User::paginate(self::MAX_RECORDS);
+            $users = User::with('orders')->paginate(self::MAX_RECORDS);
 
             return view('crud_user.list', ['users' => $users]);
         }
